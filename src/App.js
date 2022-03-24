@@ -27,7 +27,7 @@ function App() {
           <Link to="/login">login</Link>
         )}
       </Header>
-      <Content style={{ padding: "0 50px" }}>
+      <Content style={{ padding: "50px 50px" }}>
         <Pages />
       </Content>
     </Layout>

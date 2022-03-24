@@ -1,9 +1,20 @@
 import React from "react";
-import { Card, Layout, Typography } from "antd";
+import { Card, Layout, Rate, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
+
 const { Meta } = Card;
-const ListBooks = ({ books }) => {
+
+const ListBooks = ({ books = [] }) => {
   const navigation = useNavigate();
+  const calculateRate = (rate) => {
+    const index = Object.keys(rate).length;
+    let totalRate = 0;
+    for (let key in rate) {
+      totalRate += rate[key];
+    }
+    return totalRate / index;
+  };
+
   return (
     <>
       <Typography.Title>Library</Typography.Title>
@@ -16,7 +27,9 @@ const ListBooks = ({ books }) => {
             cover={<img style={{ width: 270 }} alt="example" src={book.cover} />}
             onClick={() => navigation(`books/${book.genre}/${book.title}`)}
           >
-            <p>{book.author}</p>
+            <Rate allowHalf defaultValue={calculateRate(book.rate)} disabled></Rate>
+            <p>Author: {book.author}</p>
+            <p>Genre: {book.genre}</p>
             <Meta title={book.title} description={book.annotation} />
           </Card>
         ))}
